@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlantic City - Mi Cuenta</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(249, 211, 66, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 50px;
+      filter: drop-shadow(0 0 10px #f9d342);
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f9d342;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #f9d342;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #f9d342;
+      color: #0d2240;
+      transform: translateY(-3px);
+    }
+
+    /* Main Content */
+    .cuenta-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .cuenta-title {
+      text-align: center;
+      font-size: 42px;
+      color: #f9d342;
+      margin-bottom: 50px;
+      text-shadow: 0 0 20px rgba(249, 211, 66, 0.4);
+    }
+
+    .cuenta-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    /* Perfil Card */
+    .perfil-card {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(249, 211, 66, 0.3);
+    }
+
+    .perfil-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #f9d342;
+      margin-bottom: 20px;
+      box-shadow: 0 0 30px rgba(249, 211, 66, 0.4);
+    }
+
+    .perfil-nombre {
+      font-size: 28px;
+      color: #f9d342;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .perfil-email {
+      color: #bbb;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .perfil-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .perfil-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .stat-box {
+      background: rgba(249, 211, 66, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #f9d342;
+    }
+
+    .stat-numero {
+      font-size: 32px;
+      color: #f9d342;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    /* Info Card */
+    .info-card {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(249, 211, 66, 0.3);
+    }
+
+    .info-section {
+      margin-bottom: 30px;
+    }
+
+    .info-section h3 {
+      color: #f9d342;
+      font-size: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-item {
+      background: rgba(249, 211, 66, 0.05);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid #f9d342;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-label {
+      color: #f9d342;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .info-value {
+      color: #bbb;
+      font-size: 16px;
+    }
+
+    /* Botones de acción */
+    .actions-section {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn-action {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(249, 211, 66, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(90deg, #17a2b8, #138496);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(23, 162, 184, 0.4);
+    }
+
+    .btn-danger {
+      background: linear-gradient(90deg, #dc3545, #c82333);
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(220, 53, 69, 0.4);
+    }
+
+    /* Actividad Reciente */
+    .actividad-section {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      padding: 40px;
+      margin-top: 30px;
+      box-shadow: 0 10px 40px rgba(249, 211, 66, 0.3);
+    }
+
+    .actividad-section h3 {
+      color: #f9d342;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .actividad-lista {
+      display: grid;
+      gap: 15px;
+    }
+
+    .actividad-item {
+      background: rgba(249, 211, 66, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #f9d342;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .actividad-icon {
+      font-size: 32px;
+      margin-right: 15px;
+    }
+
+    .actividad-info {
+      flex: 1;
+    }
+
+    .actividad-titulo {
+      color: #f9d342;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .actividad-detalle {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .actividad-fecha {
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 3px solid #f9d342;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal-content h3 {
+      color: #f9d342;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .modal-content p {
+      color: #bbb;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 30px;
+      text-align: center;
+      border-top: 3px solid #f9d342;
+      margin-top: 80px;
+    }
+
+    footer p {
+      color: #f9d342;
+      margin: 5px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .cuenta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://cdn.textstudio.com/output/sample/normal/7/6/3/0/atlantic-city-logo-73-10367.png" alt="Atlantic City" class="logo">
+      <div class="logo-text">Atlantic City</div>
+    </div>
+    <nav>
+      <a href="inicio.html">🏠 Inicio</a>
+      <a href="cuenta.html">👤 Cuenta</a>
+      <a href="promociones.html">🎮 Promociones-Juegos</a>
+      <a href="estadisticas.html">📊 Estadísticas</a>
+    </nav>
+  </header>
+
+  <main class="cuenta-container">
+    <h1 class="cuenta-title">👤 Mi Cuenta</h1>
+
+    <div class="cuenta-grid">
+      <!-- Perfil -->
+      <div class="perfil-card">
+        <img id="perfilAvatar" src="" alt="Avatar" class="perfil-avatar">
+        <div class="perfil-nombre" id="perfilNombre"></div>
+        <div class="perfil-email" id="perfilEmail"></div>
+        <div class="perfil-badge">⭐ Usuario VIP</div>
+
+        <div class="perfil-stats">
+          <div class="stat-box">
+            <span class="stat-numero" id="statApuestas">0</span>
+            <span class="stat-label">Apuestas</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-numero" id="statGanadas">0</span>
+            <span class="stat-label">Ganadas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información -->
+      <div class="info-card">
+        <div class="info-section">
+          <h3>📋 Información Personal</h3>
+          <div class="info-item">
+            <span class="info-label">Nombre Completo:</span>
+            <span class="info-value" id="infoNombre"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Correo Electrónico:</span>
+            <span class="info-value" id="infoEmail"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Teléfono:</span>
+            <span class="info-value" id="infoTelefono"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Edad:</span>
+            <span class="info-value" id="infoEdad"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Miembro desde:</span>
+            <span class="info-value" id="infoFecha"></span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>🎮 Estado de la Cuenta</h3>
+          <div class="info-item">
+            <span class="info-label">Estado:</span>
+            <span class="info-value" style="color: #28a745;">✅ Activa</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Nivel:</span>
+            <span class="info-value" style="color: #f9d342;">⭐ VIP Gold</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Saldo Disponible:</span>
+            <span class="info-value" style="color: #28a745;">S/ 500.00</span>
+          </div>
+        </div>
+
+        <div class="actions-section">
+          <button class="btn-action btn-primary" onclick="editarPerfil()">
+            ✏️ Editar Perfil
+          </button>
+          <button class="btn-action btn-secondary" onclick="cambiarPassword()">
+            🔒 Cambiar Contraseña
+          </button>
+          <button class="btn-action btn-danger" onclick="mostrarModalCerrarSesion()">
+            🚪 Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actividad Reciente -->
+    <div class="actividad-section">
+      <h3>📊 Actividad Reciente</h3>
+      <div class="actividad-lista">
+        <div class="actividad-item">
+          <div style="display: flex; align-items: center;">
+            <span class="actividad-icon">💬</span>
+            <div class="actividad-info">
+              <div class="actividad-titulo">Reseña publicada</div>
+              <div class="actividad-detalle">Compartiste tu experiencia en Atlantic City</div>
+            </div>
+          </div>
+          <div class="actividad-fecha">Hace 2 horas</div>
+        </div>
+
+        <div class="actividad-item">
+          <div style="display: flex; align-items: center;">
+            <span class="actividad-icon">👍</span>
+            <div class="actividad-info">
+              <div class="actividad-titulo">Votaste positivamente</div>
+              <div class="actividad-detalle">Te gusta Atlantic City</div>
+            </div>
+          </div>
+          <div class="actividad-fecha">Hace 5 horas</div>
+        </div>
+
+        <div class="actividad-item">
+          <div style="display: flex; align-items: center;">
+            <span class="actividad-icon">🎉</span>
+            <div class="actividad-info">
+              <div class="actividad-titulo">Cuenta creada</div>
+              <div class="actividad-detalle">Te uniste a Atlantic City</div>
+            </div>
+          </div>
+          <div class="actividad-fecha" id="fechaRegistro"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Cerrar Sesión -->
+  <div id="modalCerrarSesion" class="modal">
+    <div class="modal-content">
+      <h3>🚪 Cerrar Sesión</h3>
+      <p>¿Estás seguro de que deseas cerrar sesión?</p>
+      <div class="modal-buttons">
+        <button class="btn-action btn-danger" onclick="cerrarSesion()">Sí, Cerrar Sesión</button>
+        <button class="btn-action btn-secondary" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Atlantic City - Todos los derechos reservados</p>
+    <p>📞 61226198 | 📧 info@atlanticcity.com</p>
+  </footer>
+
+  <script>
+    let usuarioActual = null;
+
+    window.onload = () => {
+      // Verificar sesión
+      const sesion = localStorage.getItem('sesionActiva');
+      if (!sesion) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      usuarioActual = JSON.parse(sesion);
+      cargarDatosUsuario();
+    };
+
+    function cargarDatosUsuario() {
+      // Perfil
+      document.getElementById('perfilAvatar').src = usuarioActual.fotoPerfil;
+      document.getElementById('perfilNombre').textContent = usuarioActual.nombre;
+      document.getElementById('perfilEmail').textContent = usuarioActual.email;
+
+      // Información
+      document.getElementById('infoNombre').textContent = usuarioActual.nombre;
+      document.getElementById('infoEmail').textContent = usuarioActual.email;
+      document.getElementById('infoTelefono').textContent = usuarioActual.telefono;
+      document.getElementById('infoEdad').textContent = usuarioActual.edad + ' años';
+      document.getElementById('infoFecha').textContent = usuarioActual.fechaRegistro;
+      document.getElementById('fechaRegistro').textContent = usuarioActual.fechaRegistro;
+
+      // Estadísticas aleatorias
+      document.getElementById('statApuestas').textContent = Math.floor(Math.random() * 50) + 10;
+      document.getElementById('statGanadas').textContent = Math.floor(Math.random() * 30) + 5;
+    }
+
+    function editarPerfil() {
+      alert('🚧 Función de edición de perfil próximamente');
+    }
+
+    function cambiarPassword() {
+      alert('🚧 Función de cambio de contraseña próximamente');
+    }
+
+    function mostrarModalCerrarSesion() {
+      document.getElementById('modalCerrarSesion').classList.add('active');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modalCerrarSesion').classList.remove('active');
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('sesionActiva');
+      window.location.href = 'login.html';
+    }
+
+    // Cerrar modal al hacer clic fuera
+    document.getElementById('modalCerrarSesion').addEventListener('click', (e) => {
+      if (e.target.id === 'modalCerrarSesion') {
+        cerrarModal();
+      }
+    });
+  </script>
+</body>
+</html>

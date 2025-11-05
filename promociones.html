@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlantic City - Promociones y Juegos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(249, 211, 66, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 50px;
+      filter: drop-shadow(0 0 10px #f9d342);
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f9d342;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #f9d342;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #f9d342;
+      color: #0d2240;
+      transform: translateY(-3px);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0d2240 100%);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #f9d342;
+      text-shadow: 0 0 30px rgba(249, 211, 66, 0.6);
+      margin-bottom: 10px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(249, 211, 66, 0.4); }
+      to { text-shadow: 0 0 40px rgba(249, 211, 66, 0.8); }
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #bbb;
+    }
+
+    /* Tabs */
+    .tabs-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .tab-btn {
+      padding: 15px 30px;
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #333;
+      color: #bbb;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tab-btn:hover {
+      border-color: #f9d342;
+      color: #f9d342;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+      border-color: #f9d342;
+      box-shadow: 0 5px 20px rgba(249, 211, 66, 0.4);
+    }
+
+    /* Content Sections */
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .promo-card {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(249, 211, 66, 0.4);
+    }
+
+    .promo-card::before {
+      content: '🔥 POPULAR';
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(90deg, #dc3545, #c82333);
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .promo-card.featured::before {
+      content: '⭐ DESTACADO';
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+    }
+
+    .promo-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+
+    .promo-card:hover .promo-img {
+      transform: scale(1.1);
+    }
+
+    .promo-content {
+      padding: 25px;
+    }
+
+    .promo-content h3 {
+      color: #f9d342;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .promo-content p {
+      color: #bbb;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .promo-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .promo-date {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .promo-badge {
+      background: rgba(249, 211, 66, 0.2);
+      color: #f9d342;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-jugar {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-jugar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 20px rgba(249, 211, 66, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 30px;
+      text-align: center;
+      border-top: 3px solid #f9d342;
+      margin-top: 80px;
+    }
+
+    footer p {
+      color: #f9d342;
+      margin: 5px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://cdn.textstudio.com/output/sample/normal/7/6/3/0/atlantic-city-logo-73-10367.png" alt="Atlantic City" class="logo">
+      <div class="logo-text">Atlantic City</div>
+    </div>
+    <nav>
+      <a href="inicio.html">🏠 Inicio</a>
+      <a href="cuenta.html">👤 Cuenta</a>
+      <a href="promociones.html">🎮 Promociones-Juegos</a>
+      <a href="estadisticas.html">📊 Estadísticas</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>🎮 Promociones y Juegos</h1>
+    <p>Encuentra las mejores ofertas y juegos disponibles</p>
+  </section>
+
+  <div class="tabs-container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="cambiarTab('futbol')">
+        ⚽ Fútbol
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('casino')">
+        🎰 Casino
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('deportes')">
+        🏀 Otros Deportes
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('especiales')">
+        🎁 Especiales
+      </button>
+    </div>
+
+    <!-- Sección Fútbol -->
+    <div id="futbol" class="content-section active">
+      <div class="cards-grid">
+        <div class="promo-card featured" onclick="abrirEvento('universitario')">
+          <img src="https://elcomercio.pe/resizer/v2/P6E7XK7KXJFFPOAPZ6ZOAOZU6U.jpg?auth=baf005031ca93eb6f4d31bdfc8b1389987b19a8e3f6c21401555665b364abcec&width=1500&height=1000&quality=75&smart=true" alt="Universitario" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">📅 Vigente</span>
+              <span class="promo-badge">TRICAMPEÓN</span>
+            </div>
+            <h3>⚽ Noche Crema</h3>
+            <p>¡Celebra el tricampeonato de Universitario! Apuestas especiales con cuotas mejoradas para todos los partidos de la U.</p>
+            <button class="btn-jugar">Ver Apuestas</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirEvento('alianza')">
+          <img src="https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=800" alt="Alianza Lima" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">📅 Este fin de semana</span>
+              <span class="promo-badge">CLÁSICO</span>
+            </div>
+            <h3>⚽ Alianza Lima en Vivo</h3>
+            <p>Apuesta en vivo en los partidos del equipo blanquiazul. Cuotas actualizadas minuto a minuto.</p>
+            <button class="btn-jugar">Apostar Ahora</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirEvento('internacional')">
+          <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800" alt="Fútbol Internacional" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">📅 Champions League</span>
+              <span class="promo-badge">EUROPA</span>
+            </div>
+            <h3>⚽ Fútbol Europeo</h3>
+            <p>Champions League, Premier League, La Liga y más. Las mejores ligas del mundo.</p>
+            <button class="btn-jugar">Ver Partidos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Casino -->
+    <div id="casino" class="content-section">
+      <div class="cards-grid">
+        <div class="promo-card featured" onclick="abrirCasino('ruleta')">
+          <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800" alt="Ruleta" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🎰 En vivo 24/7</span>
+              <span class="promo-badge">VIP</span>
+            </div>
+            <h3>🎰 Ruleta Europea</h3>
+            <p>La clásica ruleta europea con crupieres profesionales. ¡Prueba tu suerte ahora!</p>
+            <button class="btn-jugar">Jugar Ruleta</button>
+          </div>
+        </div>
+
+        <div class="promo-card featured" onclick="abrirCasino('blackjack')">
+          <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800" alt="Blackjack" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🃏 Mesas abiertas</span>
+              <span class="promo-badge">POPULAR</span>
+            </div>
+            <h3>🃏 Blackjack Premium</h3>
+            <p>Juega al blackjack con dealers profesionales. Vence al crupier y llega a 21.</p>
+            <button class="btn-jugar">Jugar Blackjack</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirCasino('poker')">
+          <img src="https://images.unsplash.com/photo-1541278107931-e006523892df?w=800" alt="Poker" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">♠️ Torneos diarios</span>
+              <span class="promo-badge">TORNEO</span>
+            </div>
+            <h3>♠️ Poker Texas Hold'em</h3>
+            <p>Torneos de poker con premios increíbles. Demuestra tu habilidad en las mesas.</p>
+            <button class="btn-jugar">Ver Torneos</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirCasino('slots')">
+          <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=800" alt="Slots" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🎲 +500 juegos</span>
+              <span class="promo-badge">JACKPOT</span>
+            </div>
+            <h3>🎲 Tragamonedas</h3>
+            <p>Miles de tragamonedas con jackpots progresivos millonarios. ¡La suerte te espera!</p>
+            <button class="btn-jugar">Jugar Slots</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Otros Deportes -->
+    <div id="deportes" class="content-section">
+      <div class="cards-grid">
+        <div class="promo-card" onclick="abrirEvento('basquet')">
+          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800" alt="Basketball" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🏀 NBA</span>
+              <span class="promo-badge">EN VIVO</span>
+            </div>
+            <h3>🏀 Baloncesto NBA</h3>
+            <p>Apuesta en los mejores partidos de la NBA. Lakers, Warriors, Heat y más equipos.</p>
+            <button class="btn-jugar">Ver Partidos</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirEvento('tenis')">
+          <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800" alt="Tenis" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🎾 Grand Slam</span>
+              <span class="promo-badge">TORNEO</span>
+            </div>
+            <h3>🎾 Tenis Profesional</h3>
+            <p>ATP, WTA y Grand Slams. Apuesta en los mejores tenistas del mundo.</p>
+            <button class="btn-jugar">Ver Eventos</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirEvento('box')">
+          <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800" alt="Box" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">🥊 PPV</span>
+              <span class="promo-badge">PELEA</span>
+            </div>
+            <h3>🥊 Boxeo y UFC</h3>
+            <p>Las mejores peleas de boxeo y artes marciales mixtas. Eventos pay-per-view.</p>
+            <button class="btn-jugar">Ver Peleas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Especiales -->
+    <div id="especiales" class="content-section">
+      <div class="cards-grid">
+        <div class="promo-card featured" onclick="abrirEvento('sorteo')">
+          <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800" alt="Sorteo" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">✈️ Mensual</span>
+              <span class="promo-badge">SORTEO</span>
+            </div>
+            <h3>✈️ Sorteo Dorado</h3>
+            <p>Participa en nuestro sorteo mensual y gana un viaje todo pagado a Brasil. ¡La suerte está de tu lado!</p>
+            <button class="btn-jugar">Participar Ahora</button>
+          </div>
+        </div>
+
+        <div class="promo-card featured" onclick="abrirEvento('bono')">
+          <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800" alt="Bono" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">💰 Nuevo usuario</span>
+              <span class="promo-badge">BONO</span>
+            </div>
+            <h3>💰 Bono de Bienvenida</h3>
+            <p>¡Recibe hasta S/ 500 en tu primer depósito! Duplica tu dinero y comienza a ganar.</p>
+            <button class="btn-jugar">Reclamar Bono</button>
+          </div>
+        </div>
+
+        <div class="promo-card" onclick="abrirEvento('vip')">
+          <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800" alt="VIP" class="promo-img">
+          <div class="promo-content">
+            <div class="promo-meta">
+              <span class="promo-date">⭐ Exclusivo</span>
+              <span class="promo-badge">VIP</span>
+            </div>
+            <h3>⭐ Club VIP</h3>
+            <p>Únete al club VIP y recibe beneficios exclusivos, cashback semanal y atención prioritaria.</p>
+            <button class="btn-jugar">Ser VIP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Atlantic City - Todos los derechos reservados</p>
+    <p>📞 61226198 | 📧 info@atlanticcity.com</p>
+  </footer>
+
+  <script>
+    // Verificar sesión
+    window.onload = () => {
+      const sesion = localStorage.getItem('sesionActiva');
+      if (!sesion) {
+        alert('Debes iniciar sesión para ver las promociones');
+        window.location.href = 'login.html';
+      }
+    };
+
+    function cambiarTab(tab) {
+      // Remover clase active de todos los botones y secciones
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+
+      // Activar el botón clickeado
+      event.target.classList.add('active');
+
+      // Mostrar la sección correspondiente
+      document.getElementById(tab).classList.add('active');
+    }
+
+    function abrirCasino(juego) {
+      // URLs de casinos de ejemplo (proyectos funcionales)
+      const casinos = {
+        'ruleta': 'https://codepen.io/zanewesley/full/xxZapZJ',
+        'blackjack': 'https://codepen.io/AdamDipinto/full/bLVVKy',
+        'poker': 'https://codepen.io/Shlim45/full/ExKPjwv',
+        'slots': 'https://codepen.io/zanewesley/full/xxZapZJ'
+      };
+
+      if (casinos[juego]) {
+        window.open(casinos[juego], '_blank');
+      } else {
+        alert('🎰 Abriendo ' + juego + '...\n¡Buena suerte!');
+      }
+    }
+
+    function abrirEvento(evento) {
+      const eventos = {
+        'universitario': 'https://www.universitario.pe/',
+        'alianza': 'https://www.clubalianzalima.com/',
+        'internacional': 'https://www.uefa.com/uefachampionsleague/',
+        'sorteo': '#',
+        'bono': '#',
+        'vip': '#',
+        'basquet': 'https://www.nba.com/',
+        'tenis': 'https://www.atptour.com/',
+        'box': 'https://www.ufc.com/'
+      };
+
+      if (eventos[evento] && eventos[evento] !== '#') {
+        window.open(eventos[evento], '_blank');
+      } else {
+        alert('🎯 Próximamente disponible!\nEstamos trabajando en esta función.');
+      }
+    }
+  </script>
+</body>
+</html>

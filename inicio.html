@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlantic City - Inicio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #fff;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(249, 211, 66, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 50px;
+      filter: drop-shadow(0 0 10px #f9d342);
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f9d342;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #f9d342;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #f9d342;
+      color: #0d2240;
+      transform: translateY(-3px);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(249, 211, 66, 0.1);
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 2px solid #f9d342;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #f9d342;
+    }
+
+    .user-name {
+      color: #f9d342;
+      font-weight: bold;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0d2240 100%);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #f9d342;
+      text-shadow: 0 0 30px rgba(249, 211, 66, 0.6);
+      margin-bottom: 20px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(249, 211, 66, 0.4); }
+      to { text-shadow: 0 0 40px rgba(249, 211, 66, 0.8); }
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #bbb;
+      margin-bottom: 40px;
+    }
+
+    /* Votos Section */
+    .votos-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .voto-btn {
+      padding: 20px 50px;
+      font-size: 24px;
+      border: 3px solid;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: bold;
+    }
+
+    .voto-btn.like {
+      border-color: #28a745;
+      color: #28a745;
+    }
+
+    .voto-btn.dislike {
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+
+    .voto-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(249, 211, 66, 0.3);
+    }
+
+    .voto-btn.voted {
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+      border-color: #f9d342;
+    }
+
+    .contador-voto {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 20px;
+    }
+
+    /* Features Grid */
+    .features {
+      max-width: 1400px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(249, 211, 66, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      color: #f9d342;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    /* Reseñas Section */
+    .resenas-section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .resenas-title {
+      text-align: center;
+      font-size: 42px;
+      color: #f9d342;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(249, 211, 66, 0.4);
+    }
+
+    .form-resena {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #f9d342;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .form-resena textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #333;
+      border-radius: 12px;
+      background: #0a0a0a;
+      color: #fff;
+      font-size: 16px;
+      resize: vertical;
+      min-height: 100px;
+      margin-bottom: 15px;
+    }
+
+    .form-resena textarea:focus {
+      outline: none;
+      border-color: #f9d342;
+      box-shadow: 0 0 20px rgba(249, 211, 66, 0.3);
+    }
+
+    .btn-enviar {
+      padding: 12px 40px;
+      background: linear-gradient(90deg, #f9d342, #ffd700);
+      color: #0d2240;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-enviar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(249, 211, 66, 0.4);
+    }
+
+    .lista-resenas {
+      display: grid;
+      gap: 20px;
+    }
+
+    .resena-card {
+      background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+      border: 2px solid #333;
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .resena-card:hover {
+      border-color: #f9d342;
+    }
+
+    .resena-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .resena-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #f9d342;
+    }
+
+    .resena-info h4 {
+      color: #f9d342;
+      font-size: 18px;
+    }
+
+    .resena-fecha {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .resena-texto {
+      color: #bbb;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .resena-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-eliminar {
+      padding: 8px 20px;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-eliminar:hover {
+      background: #c82333;
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, #0d2240 0%, #1a3a5c 100%);
+      padding: 30px;
+      text-align: center;
+      border-top: 3px solid #f9d342;
+      margin-top: 80px;
+    }
+
+    footer p {
+      color: #f9d342;
+      margin: 5px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .votos-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://cdn.textstudio.com/output/sample/normal/7/6/3/0/atlantic-city-logo-73-10367.png" alt="Atlantic City" class="logo">
+      <div class="logo-text">Atlantic City</div>
+    </div>
+    <nav>
+      <a href="inicio.html">🏠 Inicio</a>
+      <a href="cuenta.html">👤 Cuenta</a>
+      <a href="promociones.html">🎮 Promociones-Juegos</a>
+      <a href="estadisticas.html">📊 Estadísticas</a>
+      <div class="user-info" id="userInfo"></div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>🎰 Bienvenido a Atlantic City 🎰</h1>
+    <p id="mensajeBienvenida">El mejor casino y centro de apuestas</p>
+
+    <div class="votos-section">
+      <button class="voto-btn like" id="btnLike" onclick="votar('like')">
+        👍 Me Gusta
+        <span class="contador-voto" id="contadorLike">0</span>
+      </button>
+      <button class="voto-btn dislike" id="btnDislike" onclick="votar('dislike')">
+        👎 No Me Gusta
+        <span class="contador-voto" id="contadorDislike">0</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚽</div>
+        <h3>Apuestas Deportivas</h3>
+        <p>Los mejores eventos deportivos con las mejores cuotas del mercado.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎰</div>
+        <h3>Casino en Vivo</h3>
+        <p>Experimenta la emoción del casino real desde tu casa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <h3>Promociones Exclusivas</h3>
+        <p>Bonos increíbles y promociones especiales cada semana.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="resenas-section">
+    <h2 class="resenas-title">💬 Reseñas de Usuarios</h2>
+
+    <div class="form-resena">
+      <h3 style="color: #f9d342; margin-bottom: 15px;">Deja tu reseña</h3>
+      <textarea id="textoResena" placeholder="Comparte tu experiencia en Atlantic City..."></textarea>
+      <button class="btn-enviar" onclick="agregarResena()">✨ Publicar Reseña</button>
+    </div>
+
+    <div class="lista-resenas" id="listaResenas"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 Atlantic City - Todos los derechos reservados</p>
+    <p>📞 61226198 | 📧 info@atlanticcity.com</p>
+  </footer>
+
+  <script>
+    let usuarioActual = null;
+
+    window.onload = () => {
+      // Verificar sesión
+      const sesion = localStorage.getItem('sesionActiva');
+      if (!sesion) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      usuarioActual = JSON.parse(sesion);
+
+      // Mostrar info de usuario
+      document.getElementById('userInfo').innerHTML = `
+        <img src="${usuarioActual.fotoPerfil}" alt="Avatar" class="user-avatar">
+        <span class="user-name">${usuarioActual.nombre}</span>
+      `;
+
+      document.getElementById('mensajeBienvenida').textContent = 
+        `¡Hola ${usuarioActual.nombre}! Disfruta de nuestros juegos`;
+
+      cargarVotos();
+      cargarResenas();
+    };
+
+    function votar(tipo) {
+      let votos = JSON.parse(localStorage.getItem('votosAtlantic')) || { likes: 0, dislikes: 0, usuarios: {} };
+
+      // Verificar si el usuario ya votó
+      if (votos.usuarios[usuarioActual.id]) {
+        alert('Ya has votado anteriormente');
+        return;
+      }
+
+      if (tipo === 'like') {
+        votos.likes++;
+        document.getElementById('btnLike').classList.add('voted');
+      } else {
+        votos.dislikes++;
+        document.getElementById('btnDislike').classList.add('voted');
+      }
+
+      votos.usuarios[usuarioActual.id] = tipo;
+      localStorage.setItem('votosAtlantic', JSON.stringify(votos));
+
+      cargarVotos();
+    }
+
+    function cargarVotos() {
+      const votos = JSON.parse(localStorage.getItem('votosAtlantic')) || { likes: 0, dislikes: 0, usuarios: {} };
+
+      document.getElementById('contadorLike').textContent = votos.likes;
+      document.getElementById('contadorDislike').textContent = votos.dislikes;
+
+      // Marcar si el usuario ya votó
+      if (votos.usuarios[usuarioActual.id]) {
+        if (votos.usuarios[usuarioActual.id] === 'like') {
+          document.getElementById('btnLike').classList.add('voted');
+        } else {
+          document.getElementById('btnDislike').classList.add('voted');
+        }
+      }
+    }
+
+    function agregarResena() {
+      const texto = document.getElementById('textoResena').value.trim();
+
+      if (!texto) {
+        alert('Por favor escribe una reseña');
+        return;
+      }
+
+      let resenas = JSON.parse(localStorage.getItem('resenasAtlantic')) || [];
+
+      const nuevaResena = {
+        id: Date.now(),
+        usuarioId: usuarioActual.id,
+        usuarioNombre: usuarioActual.nombre,
+        usuarioFoto: usuarioActual.fotoPerfil,
+        texto,
+        fecha: new Date().toLocaleString('es-PE')
+      };
+
+      resenas.unshift(nuevaResena);
+      localStorage.setItem('resenasAtlantic', JSON.stringify(resenas));
+
+      document.getElementById('textoResena').value = '';
+      cargarResenas();
+    }
+
+    function cargarResenas() {
+      const resenas = JSON.parse(localStorage.getItem('resenasAtlantic')) || [];
+      const lista = document.getElementById('listaResenas');
+
+      if (resenas.length === 0) {
+        lista.innerHTML = '<p style="text-align: center; color: #bbb;">No hay reseñas aún. ¡Sé el primero en compartir tu experiencia!</p>';
+        return;
+      }
+
+      lista.innerHTML = resenas.map(resena => `
+        <div class="resena-card">
+          <div class="resena-header">
+            <img src="${resena.usuarioFoto}" alt="Avatar" class="resena-avatar">
+            <div class="resena-info">
+              <h4>${resena.usuarioNombre}</h4>
+              <div class="resena-fecha">${resena.fecha}</div>
+            </div>
+          </div>
+          <p class="resena-texto">${resena.texto}</p>
+          ${resena.usuarioId === usuarioActual.id ? `
+            <div class="resena-actions">
+              <button class="btn-eliminar" onclick="eliminarResena(${resena.id})">🗑️ Eliminar</button>
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    function eliminarResena(id) {
+      if (confirm('¿Eliminar esta reseña?')) {
+        let resenas = JSON.parse(localStorage.getItem('resenasAtlantic')) || [];
+        resenas = resenas.filter(r => r.id !== id);
+        localStorage.setItem('resenasAtlantic', JSON.stringify(resenas));
+        cargarResenas();
+      }
+    }
+  </script>
+</body>
+</html>
